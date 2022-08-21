@@ -1,0 +1,25 @@
+.user-avatar__container{
+  /* background-color: var(--color-darker-grey); */
+  content: '';
+}
+
+.user-avatar{
+  background-color: var(--color-primary);
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.user-avatar__letter{
+  font-weight: bolder;
+  color: var(--color-text-inverted);
+}
+.user-avatar__image{
+  object-fit: cover;
+  object-position: center;
+}
