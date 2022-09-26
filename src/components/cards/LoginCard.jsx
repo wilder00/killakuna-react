@@ -1,19 +1,20 @@
 import { memo, useCallback, useState } from 'react';
 import './LoginCard.css'
 
-const LoginCard = ()=>{
+const LoginCard = ({onLogin,onLoginFormChange, error})=>{
 
   const [loginForm, setLoginForm] = useState({username: "", password: ""})
   const submitHandler = (event)=>{ 
     event.preventDefault();
     console.log(loginForm)
+    onLogin(loginForm)
   }
   const usernameHandler = (val)=>{ 
-    console.log(val.target.value); 
     setLoginForm((form)=> ({ 
       ...form,  
       username: val.target.value
     }))
+    onLoginFormChange()
   }
   const passwordHandler = (val)=>{ 
     console.log(val.target.value);
@@ -21,6 +22,7 @@ const LoginCard = ()=>{
       ...form,  
       password: val.target.value
     }) )
+    onLoginFormChange()
   }
   return (
     <div id="loginCard">
@@ -34,7 +36,7 @@ const LoginCard = ()=>{
         <div className="form-field">
           <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password" onChange={passwordHandler} value={loginForm.password}/>
-          <span className="form-field__error-message">Aquí hay un error</span>
+          { error && <span className="form-field__error-message">{error}</span>}
         </div>
         
         <div className="actions">

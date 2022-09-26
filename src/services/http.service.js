@@ -1,14 +1,18 @@
+import axios from "axios";
 
-
-const httpClient = ({axios})=>{
-
-  return {
-    get: async (path, config)=>{
-      if(!axios)
-        return {path, config}
-      return await axios.get()
-    }
-  }
+const baseApiUrl = import.meta.env.API_PATH
+const timeout = 1000
+const headers = {
+  'Content-Type': 'application/json'
 }
+console.log("baseUrl: ",baseApiUrl);
+const axiosInstance = axios.create({
+  baseURL: baseApiUrl,
+  timeout,
+  headers
+});
 
-export default httpClient
+
+export const httpClient = (axiosI = axiosInstance)=>{
+  return axiosI
+}
