@@ -1,4 +1,5 @@
 import { memo, useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './LoginCard.css'
 
 const LoginCard = ({onLogin,onLoginFormChange, error})=>{
@@ -47,7 +48,7 @@ const LoginCard = ({onLogin,onLoginFormChange, error})=>{
       </form>
       
       <div className="login-card__bottom-message">
-        <p> no account yet? <a>Sign in</a></p>
+        <p> no account yet? <Link to="/Register">Sign up</Link></p>
       </div>
     </div>
   )

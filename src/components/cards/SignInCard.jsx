@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './SignInCard.css'
 
 const SignInCard = ()=>{
@@ -46,7 +47,7 @@ const SignInCard = ()=>{
       </div>
 
       <div className="login-card__bottom-message">
-        <p> already have an account? <a>Login</a></p>
+        <p> already have an account? <Link to="/login">Login</Link></p>
       </div>
     </div>
   )
