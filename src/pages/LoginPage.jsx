@@ -1,11 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import LoginCard from "../components/cards/LoginCard"
+import { LoginContext } from "../contexts/loginContext"
 import authService from "../services/auth.service"
 import './LoginPage.css'
 
 const { login } = authService()
 
-const toLogin = async ({username, password}, setLoginError)=>{
+const toLogin = async ({username, password},setAuth, setLoginError, navigate)=>{
+  
   try {
     const response = await login({username, password})
     if(response?.data?.ok){
@@ -13,6 +16,9 @@ const toLogin = async ({username, password}, setLoginError)=>{
       localStorage.setItem('auth_token', access_token)
       localStorage.setItem('auth_user', JSON.stringify(user))
       localStorage.setItem('auth_uid', uid)
+
+      setAuth({token:access_token, user, uid})
+      navigate('/', {replace: true})
     }
     console.log("Login response: ",{response});
   } catch (error) {
@@ -25,11 +31,12 @@ const toLogin = async ({username, password}, setLoginError)=>{
 
 const LoginPage = ()=>{
   const [loginError, setLoginError] = useState("");
-
+  const {auth, setAuth} = useContext(LoginContext);
+  const navigate = useNavigate()
   return (
     <section id="LoginPage">
         <LoginCard 
-          onLogin={ (form)=>toLogin(form,setLoginError)} 
+          onLogin={ (form)=>toLogin(form,setAuth,setLoginError, navigate)} 
           error={loginError}
           onLoginFormChange={()=>setLoginError('')}
         />

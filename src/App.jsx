@@ -4,7 +4,9 @@ import PublicLayout from "./layouts/PublicLayout"
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
 import SignInPage from "./pages/SignInPage"
-import {Navigate, Route, Routes, Link} from "react-router-dom"
+import {Navigate, Route, Routes, Link, useNavigate} from "react-router-dom"
+import { useContext, useEffect } from "react"
+import { LoginContext } from "./contexts/loginContext"
 
 function App() {
   /* return (
@@ -12,9 +14,25 @@ function App() {
       <HomePage/>
     </DefaultLayout>
   ) */
+  const navigate = useNavigate()
+
+  const {auth, setAuth} = useContext(LoginContext);
+  
+  useEffect(() => {
+    if(!auth.user){
+      navigate('/login', {replace: true})
+    }
+    if(auth.user){
+      navigate('/', {replace: true})
+    }
+    /* return () => {
+      cleanup
+    }; */
+  }, [auth]);
 
   return (
     <Routes>
+      
       {/* <Link to="/"></Link> */}
       <Route exact path="/" element={
         <DefaultLayout>
